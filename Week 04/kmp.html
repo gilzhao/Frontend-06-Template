@@ -1,0 +1,45 @@
+<script>
+	function kmp(source, pattern) {
+		let table = new Array(pattern.length).fill(0);
+		{
+			let i = 1,
+				j = 0;
+			//  从 i 开始算，j 表示重复的次数
+			while (i < table.length) {
+				if (pattern[i] === pattern[j]) {
+					i++;
+					j++;
+					table[i] = j;
+				} else {
+					if (j > 0) {
+						j = table[j];
+					} else {
+						++i;
+					}
+				}
+			}
+		}
+		{
+			// j:pattern的位置; i:source串的位置
+			let i = 0,
+				j = 0;
+			while (i < source.length) {
+				if (pattern[j] === source[i]) {
+					i++;
+					j++;
+				} else {
+					// 若没有匹配上，则 j 回退到table[j]，source 从 table[j] 开始匹配后面的字符
+					if (j > 0) {
+						j = table[j];
+					} else {
+						i++;
+					}
+				}
+				if (j === pattern.length) return true;
+			}
+			return false;
+		}
+	}
+
+	console.log(kmp('adcabcede', 'ab'));
+</script>
