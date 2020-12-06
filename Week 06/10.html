@@ -1,0 +1,21 @@
+class People {
+    constructor(){
+        this.HP = 100
+    }
+    hurt(damage){
+        this.HP -= damage
+    }
+}
+
+class Dog{
+    constructor(){
+        this.damage = 10
+    }
+    doHurt(){
+        return this.damage
+    }
+}
+
+const people = new People()
+const dog = new Dog()
+people.hurt(dog.bite())

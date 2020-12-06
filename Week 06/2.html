@@ -1,0 +1,13 @@
+<MultiplicativeExpression>::=
+    <Number>|
+    <MultiplicativeExpression> "*" <Number>|
+    <MultiplicativeExpression> "/" <Number>|
+    <PrioritizedExpression>|
+    <MultiplicativeExpression> "*" <PrioritizedExpression>|
+    <MultiplicativeExpression> "/" <PrioritizedExpression>
+
+<AdditiveExpression>::=<MultiplicativeExpression>|
+    <MultiplicativeExpression> "+" <Number>|
+    <MultiplicativeExpression> "-" <Number>
+        
+<PrioritizedExpression>::="("<AdditiveExpression>")"
