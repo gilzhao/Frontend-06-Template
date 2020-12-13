@@ -1,0 +1,63 @@
+<script>
+function stringToNumber(str) {
+    let hexNumbers = '0123456789abcdef';
+    let octNumbers = '01234567';
+    let binNumbers = '01';
+    let num = 0;
+
+    let type = null;
+    let typeNumbers = null;
+
+    if (str.startsWith('0x')) {
+        type = 16;
+        typeNumbers = hexNumbers;
+    }
+    if (str.startsWith('0o')) {
+        type = 8;
+        typeNumbers = octNumbers;
+    }
+    if (str.startsWith('0b')) {
+        type = 2;
+        typeNumbers = binNumbers;
+    }
+
+    for (let i = str.length - 1; i >= 2; i--) {
+        const v = str[i];
+        num += typeNumbers.indexOf(v) * type ** (str.length - 1 - i);
+    }
+    return num;
+}
+
+function numberToString(number, type) {
+    if (number === 0) return '0';
+    if (type === 10) return String(number);
+
+    let hexNumbers = '0123456789abcdef';
+    let result = '';
+    let sign = number > 0 ? '' : '-'; // 符号正负
+    let numb = Math.abs(number);
+
+    while (numb > 0) {
+        if (numb % type) {
+            result = hexNumbers[numb % type] + result;
+        } else {
+            result = '0' + result;
+        }
+        numb >>= Math.log2(type);
+    }
+    switch (type) {
+        case 16:
+            result = '0x' + result;
+            break;
+        case 8:
+            result = '0o' + result;
+            break;
+        case 2:
+            result = '0b' + result;
+            break;
+        default:
+            break;
+    }
+    return result;
+}
+</script>
