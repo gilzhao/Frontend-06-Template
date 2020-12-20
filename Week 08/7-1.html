@@ -1,0 +1,63 @@
+<script>
+    /**
+	 * 使用状态机处理
+	 * 每一个状态是一个独立的机器，互不干扰，在js种可以函数作为状态机
+	 */
+
+	function match(str) {
+	    let state = start;
+	    for (const s of str) {
+	        state = state(s);
+	    }
+	    return state === end;
+	}
+
+	function start(s) {
+	    if (s === 'a') {
+	        return foundA;
+	    }
+	    return start;
+	}
+
+	function end(s) {
+	    return end;
+	}
+
+	function foundA(s) {
+	    if (s === 'b') {
+	        return foundB;
+	    }
+	    // 如果当前状态未触发下一个状态机，将当前状态作为起始状态机状态触发
+	    return start(s);
+	}
+
+	function foundB(s) {
+	    if (s === 'c') {
+	        return foundC;
+	    }
+	    return start(s);
+	}
+
+	function foundC(s) {
+	    if (s === 'd') {
+	        return foundD;
+	    }
+	    return start(s);
+	}
+
+	function foundD(s) {
+	    if (s === 'e') {
+	        return foundE;
+	    }
+	    return start(s);
+	}
+
+	function foundE(s) {
+	    if (s === 'f') {
+	        return end;
+	    }
+	    return start(s);
+	}
+
+	console.log(match('ababcdef'))
+</script>
